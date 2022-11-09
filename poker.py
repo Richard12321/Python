@@ -1,11 +1,9 @@
 import random
 
-numbers = [2, 3, 4, 5, 6, 7, 8, 9, 10, "Bube", "Dame", "König", "Ass"]
-colours = ["Kreuz", "Karo", "Pik", "Herz"]
-
 def cardToString(cardindex):
-    return {"number":cardindex["number"],"colour":colours[cardindex["colour"]]}
-
+    numbers = [2, 3, 4, 5, 6, 7, 8, 9, 10, "Bube", "Dame", "König", "Ass"]
+    colours = ["Kreuz", "Karo", "Pik", "Herz"]
+    return {"number":numbers[cardindex["number"]],"colour":colours[cardindex["colour"]]}
 
 def pull(amount):
     cardpool = []
@@ -16,7 +14,8 @@ def pull(amount):
 
     for i in range(amount):
         rand = random.randrange(0,52)
-        cardpool[len(cardpool) - i - 1], cardpool[rand] = cardpool[rand], cardpool[len(cardpool) - i - 1]
+        cardpool[len(cardpool) - i - 1], cardpool[rand] =\
+            cardpool[rand], cardpool[len(cardpool) - i - 1]
 
     sor = cardpool[len(cardpool)-amount:]
     sor.sort(key=lambda x: x.get("number"))
@@ -48,7 +47,7 @@ def straightFlush(cards):
 
 def poker(cards):
     onlyNumbers = listNumbers(cards)
-    for i in range(len(numbers)):
+    for i in range(13):
         if onlyNumbers.count(i) == 4:
             return True
     return False
@@ -61,7 +60,7 @@ def fullHouse(cards):
 def flush(cards):
     coloursOnly = listCoulours(cards)
     fl = []
-    for i in range(len(colours)):
+    for i in range(4):
         if coloursOnly.count(i) >= 5:
             for j in cards:
                 if j["colour"] == i:
@@ -88,7 +87,7 @@ def straight(cards):
 
 def triple(cards):
     onlyNumbers = listNumbers(cards)
-    for i in range(len(numbers)):
+    for i in range(13):
         if onlyNumbers.count(i) == 3:
             return True
     return False
@@ -96,7 +95,7 @@ def triple(cards):
 def pair(cards):
     pairs = 0
     onlyNumbers = listNumbers(cards)
-    for i in range(len(numbers)):
+    for i in range(13):
         if onlyNumbers.count(i) == 2:
             pairs += 1
     return pairs
@@ -124,10 +123,22 @@ def hand(cards):
         return "high"
 
 def stats(pulls, cardsPerPull):
-    stat = {"royalFlush": 0, "straightFlush": 0, "poker": 0, "fullHouse": 0, "flush": 0,"straight": 0, "triple": 0, "twoPair": 0, "pair": 0, "high": 0}
+    stat = {"royalFlush": 0, "straightFlush": 0, "poker": 0, "fullHouse": 0,\
+            "flush": 0,"straight": 0, "triple": 0, "twoPair": 0, "pair": 0,\
+            "high": 0}
     for i in range(pulls):
         stat[hand(pull(cardsPerPull))] += 1
-    statPercent = {"royalFlush": (stat["royalFlush"]/pulls)*100, "straightFlush": (stat["straightFlush"]/pulls)*100, "poker": (stat["poker"]/pulls)*100, "fullHouse": (stat["fullHouse"]/pulls)*100, "flush": (stat["flush"]/pulls)*100,"straight": (stat["straight"]/pulls)*100, "triple": (stat["triple"]/pulls)*100, "twoPair": (stat["twoPair"]/pulls)*100, "pair": (stat["pair"]/pulls)*100, "high": (stat["high"]/pulls)*100}
+    statPercent = {"royalFlush": (stat["royalFlush"]/pulls)*100, \
+            "straightFlush": (stat["straightFlush"]/pulls)*100, \
+            "poker": (stat["poker"]/pulls)*100, \
+            "fullHouse": (stat["fullHouse"]/pulls)*100, \
+            "flush": (stat["flush"]/pulls)*100,\
+            "straight": (stat["straight"]/pulls)*100,\
+            "triple": (stat["triple"]/pulls)*100,\
+            "twoPair": (stat["twoPair"]/pulls)*100,\
+            "pair": (stat["pair"]/pulls)*100, "high": (stat["high"]/pulls)*100}
     return (stat, statPercent)
 
-print(stats(1000000,5))
+if __name__ == "__main__":
+    print(stats(1000000,5))
+    #print(cardToString(pull(5)[0]))
