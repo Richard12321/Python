@@ -139,6 +139,24 @@ def stats(pulls, cardsPerPull):
             "pair": (stat["pair"]/pulls)*100, "high": (stat["high"]/pulls)*100}
     return (stat, statPercent)
 
-if __name__ == "__main__":
-    print(stats(1000000,5))
+def main():
+    pulls = int(input("Ziehungen?"))
+    cardsPerPull = int(input("Karten pro Ziehungen?"))
+    statperc = stats(pulls,cardsPerPull)[1]
+    statabs = stats(pulls,cardsPerPull)[0]
+    breakpoint()
+    print("Number of drawn cards:     \t", pulls)
+    print("Highest-Card:              \t", str(round(statperc["high"], 4)), " % \t", statabs["high"])
+    print("One-Pair:                  \t", str(round(statperc["pair"], 4)), " %  \t", statabs["pair"])
+    print("Two-Pair:                  \t", str(round(statperc["twoPair"], 4)), " %  \t", statabs["twoPair"])
+    print("Triple:                    \t", str(round(statperc["triple"], 4)), " %  \t", statabs["triple"])
+    print("Straight:                  \t", str(round(statperc["straight"], 4)), " %  \t", statabs["straight"])
+    print("Flush:                     \t", str(round(statperc["flush"], 4)), " %  \t", statabs["flush"])
+    print("Full-House:                \t", str(round(statperc["fullHouse"], 4)), " %  \t", statabs["fullHouse"])
+    print("Four-Of-A-Kind:            \t", str(round(statperc["poker"], 4)), " %  \t", statabs["poker"])
+    print("Straight-Flush:            \t", str(round(statperc["straightFlush"], 4)), " %  \t", statabs["straightFlush"])
+    print("Royal-Flush:               \t", str(round(statperc["royalFlush"], 4)), " %  \t", statabs["royalFlush"])
     #print(cardToString(pull(5)[0]))
+
+if __name__ == "__main__":
+    main()
