@@ -1,0 +1,19 @@
+{
+    "user": {
+        "wins": 5,
+        "Scissors": 2,
+        "Paper": 2,
+        "Rock": 2,
+        "Lizard": 2,
+        "Spock": 2
+    },
+    "com": {
+        "wins": 3,
+        "Scissors": 4,
+        "Paper": 1,
+        "Rock": 2,
+        "Lizard": 1,
+        "Spock": 2
+    },
+    "draws": 2
+}
