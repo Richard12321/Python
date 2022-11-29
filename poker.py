@@ -144,7 +144,6 @@ def main():
     cardsPerPull = int(input("Karten pro Ziehungen?"))
     statperc = stats(pulls,cardsPerPull)[1]
     statabs = stats(pulls,cardsPerPull)[0]
-    breakpoint()
     print("Number of drawn cards:     \t", pulls)
     print("Highest-Card:              \t", str(round(statperc["high"], 4)), " % \t", statabs["high"])
     print("One-Pair:                  \t", str(round(statperc["pair"], 4)), " %  \t", statabs["pair"])
