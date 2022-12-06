@@ -1,31 +1,41 @@
 from enum import Enum
 
-
 class gender(Enum):
     Undefined = 0
     Male = 1
     Female = 2
 
-
 class company():
-    def __init__(self, employees):
+    def __init__(self, employees, departments):
         self.employees = employees
+        self.departments = departments
     
     def genderRatio(self):
-        count = {
+        cnt = {
             gender.Female: 0,
             gender.Male: 0,
             gender.Undefined: 0
         }
         for i in self.employees:
-            count[i.gender] += 1
-        return (count)
+            cnt[i.gender] += 1
+        return (list(cnt.keys()), list(map(lambda x: x / len(self.employees), cnt.values())))
     
     def cntEmployees(self):
         return len(self.employees)
     
     def cntManager(self):
         return len(list(filter(lambda x: isinstance(x, manager), self.employees)))
+
+    def cntDepartments(self):
+        return len(self.departments)
+
+    def biggestDepartment(self):
+        cnt = {}
+        for i in self.departments:
+            cnt[i.name] = 0
+        for i in self.employees:
+            cnt[i.department.name] += 1
+        return cnt
 
 class person():
     def __init__(self, gender, firstName, lastName):
@@ -54,11 +64,11 @@ def main():
     e2 = employee(gender.Female, "Werner", "Mair", distribution)
     e3 = employee(gender.Male, "Dominik", "Vötter", marketing)
     e4 = employee(gender.Undefined, "Fabian", "Strasser", marketing)
-    m1 = manager(gender.Male, "Miguel", "Mayrhofer", department)
+    m1 = manager(gender.Male, "Miguel", "Mayrhofer", distribution)
     m2 = manager(gender.Female, "Lucas", "Schebor", marketing)
 
-    com = company([e1, e2, e3, e4, m1, m2])
-    print(com.cntManager())
+    com = company([e1, e2, e3, e4, m1, m2], [marketing, distribution])
+    print(com.genderRatio())
 
 if __name__ == "__main__":
     main()
