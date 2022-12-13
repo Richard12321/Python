@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+    <h2>Gamemode:</h2>
+      <select id="gamemode">
+        <option value="1">hard</option>
+        <option value="0">easy</option>
+      </select>
+    <h2>Pick one:</h2> 
+    <select id="pick">
+        <option value="Rock">Rock</option>
+        <option value="Paper">Paper</option>
+        <option value="Scissors">Scissors</option>
+        <option value="Spock">Spock</option>
+        <option value="Lizard">Lizard</option>
+    </select>
+    <button onclick="play()">Play</button>
+    <p>{{ result }}</p>
+  </body>
+
+  <script>
+    function play(){
+        let mode = document.getElementById("gamemode").value;
+        let pick = document.getElementById("pick").value;
+        window.location.href = "http://localhost:5000/pick/" + pick + "/" + mode;
+    }
+  </script>
+</html>

@@ -28,15 +28,21 @@ def userPick():
         pick = input("Choose from Scissors, Paper, Rock, Lizard, Spock:")
     return figure(pick, figure.figureBeats(pick))
 
-def comPick():
-    rand = random.randrange(0,5,1)
-    fig = figure.figureList()[rand]
-    return figure(fig, figure.figureBeats(fig))
+def comPick(mode):
+    match mode:
+        case 0:
+            rand = random.randrange(0,5,1)
+            fig = figure.figureList()[rand]
+            return figure(fig, figure.figureBeats(fig))
+        case 1:
+            with open('RPSSL/RPSSL.json', 'r') as file:
+                data = json.load(file)
+                #TODO: Schweren spielmodus bauen
 
 def compare(fig1, fig2):
     return (fig2.fig in fig1.beats,  fig1.fig == fig2.fig)
 
-def statistics(upick, cpick):
+def stats(upick, cpick):
     with open('RPSSL/RPSSL.json', 'r+') as file:
         data = json.load(file)
         data["user"][upick.fig] += 1
@@ -51,17 +57,19 @@ def statistics(upick, cpick):
         json.dump(data, file, indent=4)
         file.truncate()
 
-def main():
-    upick = userPick()
-    cpick = comPick()
-    statistics(upick, cpick)
-    print("User Pick: " + upick.fig + ", Computer Pick: " + cpick.fig)
+def play(pick, mode):
+    upick = pick if type(pick) == figure else figure(pick, figure.figureBeats(pick))
+    cpick = comPick(mode)
+    stats(upick, cpick)
     if compare(upick, cpick)[0] and not compare(upick, cpick)[1]:
-        print("User Wins!")
+        return 'User Wins! User pick: ' + upick.fig + ', Com Pick: ' + cpick.fig
     elif not compare(upick, cpick)[1]:
-        print("Computer Wins!")
+        return 'Com Wins! User pick: ' + upick.fig + ', Com Pick: ' + cpick.fig
     else:
-        print("Draw!")
+        return 'Draw! User pick: ' + upick.fig + ', Com Pick: ' + cpick.fig
+
+def main():
+    print(play(userPick()), 0)
 
 if __name__ == "__main__":
-    main()
+    comPick(1)
