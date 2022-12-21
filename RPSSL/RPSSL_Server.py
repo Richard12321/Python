@@ -10,6 +10,8 @@ class statistics(Resource):
 app = Flask(__name__)
 api = Api(app)
 
+app.secret_key = '48c1cb4d1388f1504ce904f8b875da9f51f0466d322d3120ec32b0ee14ba40f9'
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -18,12 +20,15 @@ def index():
 def game():
     return render_template('game.html', test='test')
 
-@app.route('/pick/<string:pick>/<int:mode>')
-def pick(pick, mode): 
-    res = play(pick, mode) 
+@app.route('/pick/<string:pick>/<int:mode>/<string:name>')
+def pick(pick, mode, name):
+    if 'lastPick' not in session: 
+        session['lastPick'] = ''
+    res = play(pick, mode, session['lastPick'], name)
+    session['lastPick'] = pick
+
     return render_template('game.html', result=res)
 
 api.add_resource(statistics, '/stats')
 
 app.run(debug=True)
-

@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
+    <h2>Player:</h2>
+    <input type="text" id="name"><br>
     <h2>Gamemode:</h2>
       <select id="gamemode">
         <option value="1">hard</option>
@@ -26,7 +28,8 @@
     function play(){
         let mode = document.getElementById("gamemode").value;
         let pick = document.getElementById("pick").value;
-        window.location.href = "http://localhost:5000/pick/" + pick + "/" + mode;
+        let name = document.getElementById("name").value;
+        window.location.href = "http://localhost:5000/pick/" + pick + "/" + mode + "/" + name;
     }
   </script>
 </html>

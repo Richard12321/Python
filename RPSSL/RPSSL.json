@@ -1,19 +1,42 @@
 {
-    "user": {
-        "wins": 12,
-        "Scissors": 8,
-        "Paper": 4,
-        "Rock": 8,
-        "Lizard": 4,
-        "Spock": 5
-    },
-    "com": {
-        "wins": 11,
-        "Scissors": 9,
-        "Paper": 6,
-        "Rock": 4,
-        "Lizard": 5,
-        "Spock": 5
-    },
-    "draws": 6
+    "players": {
+        "richard": {
+            "user": {
+                "wins": 13,
+                "Scissors": 11,
+                "Paper": 5,
+                "Rock": 10,
+                "Lizard": 4,
+                "Spock": 9
+            },
+            "com": {
+                "wins": 16,
+                "Scissors": 9,
+                "Paper": 8,
+                "Rock": 7,
+                "Lizard": 5,
+                "Spock": 10
+            },
+            "draws": 7
+        },
+        "test": {
+            "user": {
+                "won": 0,
+                "Scissors": 1,
+                "Paper": 0,
+                "Rock": 1,
+                "Lizard": 1,
+                "Spock": 0
+            },
+            "com": {
+                "won": 0,
+                "Scissors": 1,
+                "Paper": 0,
+                "Rock": 0,
+                "Lizard": 0,
+                "Spock": 2
+            },
+            "draw": 0
+        }
+    }
 }
