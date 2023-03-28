@@ -130,30 +130,30 @@ class DoppeltVerketteteListe:
         for i in iterable:
             self.append(i)  
 
+    #O: n
     def insert(self, value, index):
         le = self.firstElem
         i = 0
-        prevElem = None
         newElem = ListElement(value)
         while le != None:
-            if i == index and prevElem != None and i != self.length()-1:
-                prevElem.nextElem = newElem
+            if i == index and le != self.firstElem and i != self.length()-1:
                 newElem.nextElem = le.nextElem
+                newElem.prevElem = le.prevElem
+                le.nextElem.prevElem = newElem
+                le.prevElem.nextElem = newElem
                 return
-            elif i == index and prevElem == None:
+            elif i == index and le == self.firstElem:
                 newElem.nextElem = le
+                le.prevElem = newElem
                 self.firstElem = newElem
                 return
-            elif i == index and prevElem != None and i == self.length()-1:
-                lastElement = self.getLastElem().obj
-                self.pop(self.length()-1)
+            elif i == index and i == self.length()-1:
                 self.append(value)
-                self.append(lastElement)
-            prevElem = le
+                return
             le = le.nextElem
             i+=1
         print("Index out of Bound")
-        
+
 
 def main():
     liste = DoppeltVerketteteListe()
@@ -172,9 +172,10 @@ def main():
     liste.extend([10,11,12,13])
     liste.printAll()
     print()
-    liste.insert(5, 12)
+    liste.insert(5, 13)
     liste.printAll()
 
+    liste.insertionSort()
 
 if __name__ == "__main__":
     main()

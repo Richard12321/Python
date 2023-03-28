@@ -125,18 +125,16 @@ class EinfachVerketteteListe:
         newElem = ListElement(value)
         while le != None:
             if i == index and prevElem != None and i != self.length()-1:
+                newElem.nextElem = le
                 prevElem.nextElem = newElem
-                newElem.nextElem = le.nextElem
                 return
             elif i == index and prevElem == None:
                 newElem.nextElem = le
                 self.firstElem = newElem
                 return
             elif i == index and prevElem != None and i == self.length()-1:
-                lastElement = self.getLastElem().obj
-                self.pop(self.length()-1)
                 self.append(value)
-                self.append(lastElement)
+                return
             prevElem = le
             le = le.nextElem
             i+=1
@@ -160,7 +158,7 @@ def main():
     liste.extend([10,11,12,13])
     liste.printAll()
     print()
-    liste.insert(5, 13)
+    liste.insert(5, 10)
     liste.printAll()
 
 
