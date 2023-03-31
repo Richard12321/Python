@@ -61,3 +61,7 @@ class arrayList():
     #O: 1
     def insert(self, value, index):
         self.arrayList.insert(index, value)
+    
+    #O: n*log(n)
+    def sort(self):
+        self.arrayList.sort()

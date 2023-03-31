@@ -71,9 +71,13 @@ class DoppeltVerketteteListe:
         le = self.firstElem
         i = 0
         while le != None:
-            if i == index:
+            if i == index and le.nextElem != None:
+                le.nextElem.prevElem = le.prevElem
                 le.prevElem.nextElem = le.nextElem
                 return 
+            elif i == index and le.nextElem == None:
+                le.prevElem.nextElem = None
+                return
             le = le.nextElem
             i += 1
         print("Index Out of Bound")
@@ -137,10 +141,10 @@ class DoppeltVerketteteListe:
         newElem = ListElement(value)
         while le != None:
             if i == index and le != self.firstElem and i != self.length()-1:
-                newElem.nextElem = le.nextElem
+                newElem.nextElem = le
                 newElem.prevElem = le.prevElem
-                le.nextElem.prevElem = newElem
                 le.prevElem.nextElem = newElem
+                le.prevElem = newElem
                 return
             elif i == index and le == self.firstElem:
                 newElem.nextElem = le
@@ -153,6 +157,19 @@ class DoppeltVerketteteListe:
             le = le.nextElem
             i+=1
         print("Index out of Bound")
+
+
+    #O: n^2 Insertion Sort
+    def sort(self):
+        for i in range(self.length()):
+            if i == 0:
+                continue
+            le = self.getElem(i)
+            j = i
+            while (le < self.getElem(j-1) and j > 0):
+                j = j-1
+            self.insert(le, j)
+            self.pop(i+1)
 
 
 def main():
@@ -169,13 +186,23 @@ def main():
     print()
     print(liste.count(2))
     print()
-    liste.extend([10,11,12,13])
+    liste.extend([10,12,11,13])
     liste.printAll()
     print()
-    liste.insert(5, 13)
+    liste.insert(5, 9)
+    liste.insert(12, 3)
+    liste.printAll()
+    print()
+    liste.sort()
     liste.printAll()
 
-    liste.insertionSort()
+    print("---------------------------------------------")
+    l = DoppeltVerketteteListe()
+    l.extend([5,23,8,56,12])
+    l.printAll()
+    print()
+    l.sort()
+    l.printAll()
 
 if __name__ == "__main__":
     main()
